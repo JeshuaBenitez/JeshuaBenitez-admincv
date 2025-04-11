@@ -1,0 +1,25 @@
+<div class="container color-dark">
+    <div class="col">
+      <p>Interests</p>
+    </div>
+  </div>
+  
+  <div class="container color-light">
+    <div class="col">
+      <form>
+        <textarea rows="5" cols="40" class="txt" placeholder="Describe tu interés" [(ngModel)]="myInterest.interes" name="interes"></textarea>
+        <br>
+        <input type="submit" class="btn" [value]="btntxt" (click)="agregarInterest()">
+      </form>
+    </div>
+  
+    <div class="col">
+      <p class="life-container" *ngFor="let inter of interests">
+        <input type="submit" class="btn" value="Editar" (click)="editarInterest(inter)">
+        <input type="submit" class="btn" value="Eliminar" (click)="deleteInterest(inter.id)">
+        <br>
+        {{ inter.interes }}
+      </p>
+    </div>
+  </div>
+  

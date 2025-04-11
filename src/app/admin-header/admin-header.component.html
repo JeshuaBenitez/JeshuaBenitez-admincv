@@ -1,0 +1,36 @@
+<div class="container color-dark">
+  <div class="col">
+    <p>Header Settings</p>
+  </div>
+</div>
+
+<div class="container color-light">
+  <div class="col">
+    <form>
+      <input type="text" class="txt" placeholder="Full name" [(ngModel)]="myHeader.name" name="name"><br>
+      <input type="text" class="txt" placeholder="Life goal" [(ngModel)]="myHeader.goalLife" name="goalLife"><br>
+      <input type="text" class="txt" placeholder="Photo URL" [(ngModel)]="myHeader.photoUrl" name="photoUrl"><br>
+      <input type="text" class="txt" placeholder="Email" [(ngModel)]="myHeader.email" name="email"><br>
+      <input type="text" class="txt" placeholder="Phone Number" [(ngModel)]="myHeader.phoneNumber" name="phoneNumber"><br>
+      <input type="text" class="txt" placeholder="Location" [(ngModel)]="myHeader.location" name="location"><br>
+      <input type="text" class="txt" placeholder="Social Network" [(ngModel)]="myHeader.socialNetwork" name="socialNetwork"><br>
+
+      <input type="submit" class="btn" [value]="btntxt" (click)="actualizarHeader()">
+    </form>
+  </div>
+
+  <div class="col">
+    <div *ngFor="let item of header" class="life-container">
+      <p><strong>{{item.name}}</strong> - {{item.goalLife}}</p>
+      <button class="btn-icon" (click)="editarHeader(item)">
+        <span>✏️ Editar</span>
+      </button>
+      <button class="btn-icon btn-danger" (click)="deleteHeader(item.id)">
+        <span>🗑️ Eliminar</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+     
+  

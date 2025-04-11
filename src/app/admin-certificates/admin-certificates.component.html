@@ -1,0 +1,26 @@
+<div class="container color-dark">
+    <div class="col">
+      <p>Certificates</p>
+    </div>
+  </div>
+  
+  <div class="container color-light">
+    <div class="col">
+      <form>
+        <input type="text" class="txt" name="certificateName" placeholder="Certificate name"
+               [(ngModel)]="myCertificate.certification"> <br>
+        <input type="text" class="txt" name="institution" placeholder="Institution"
+               [(ngModel)]="myCertificate.Institution"> <br>
+        <input type="submit" class="btn" value="{{ btntxt }}" (click)="AgregarCertificate()">
+      </form>
+    </div>
+  
+    <div class="col">
+      <p class="life-container" *ngFor="let cert of certificates">
+        <input type="submit" class="btn" value="delete" (click)="deleteCertificate(cert.id)">
+        <input type="submit" class="btn" value="edit" (click)="EditarCertificate(cert)">
+        {{ cert.certification }} - {{ cert.Institution }}
+      </p>
+    </div>
+  </div>
+  

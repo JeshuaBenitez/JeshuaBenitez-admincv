@@ -1,0 +1,25 @@
+<div class="container color-dark">
+    <div class="col">
+      <p> Education items </p>
+    </div>
+  </div>
+  
+  <div class="container color-light">
+    <div class="col">
+      <form>
+        <input type="text" class="txt" name="School" placeholder="School" [(ngModel)]="myEducation.School"> <br>
+        <input type="text" class="txt" name="Training" placeholder="Training" [(ngModel)]="myEducation.Training"> <br>
+        <input type="text" class="txt" name="licenses" placeholder="Licenses" [(ngModel)]="myEducation.licenses"> <br>
+        <input type="submit" class="btn" [value]="btntxt" (click)="AgregarEdu()">
+      </form>
+    </div>
+  
+    <div class="col">
+      <p class="life-container" *ngFor="let edu of education;">
+        <input type="submit" class="btn" value="Eliminar" (click)="deleteEducation(edu.id)">
+        <input type="submit" class="btn" value="Editar" (click)="EditarEdu(edu)">
+        {{ edu.School }} - {{ edu.Training }} - {{ edu.licenses }}
+      </p>
+    </div>
+  </div>
+  
