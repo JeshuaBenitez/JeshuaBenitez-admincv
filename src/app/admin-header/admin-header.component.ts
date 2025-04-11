@@ -10,12 +10,9 @@ import { map } from 'rxjs';
 })
 export class AdminHeaderComponent {
   myHeader: header = new header();
-  headerId: string = '';
   header: header[] = [];
   btntxt: string = 'Agregar';
-
   selectedHeaderId: string | null = null;
-
 
   constructor(private headerService: HeaderService) {
     this.headerService.getHeader().snapshotChanges().pipe(
@@ -25,32 +22,47 @@ export class AdminHeaderComponent {
     ).subscribe(data => {
       this.header = data;
     });
-    
   }
 
-  actualizarHeader() {
-    if (confirm('¿Deseas actualizar los datos del encabezado?')) {
-      this.headerService.updateHeader(this.headerId, this.myHeader).then(() => {
-        alert('¡Header actualizado!');
-      });
+  onSubmit() {
+    if (this.selectedHeaderId) {
+      if (window.confirm('¿Deseas actualizar este header?')) {
+        this.headerService.updateHeader(this.selectedHeaderId, this.myHeader).then(() => {
+          alert('¡Header actualizado!');
+          this.resetForm();
+        });
+      }
+    } else {
+      if (window.confirm('¿Deseas agregar este header?')) {
+        this.headerService.createHeader(this.myHeader).then(() => {
+          alert('Header agregado correctamente');
+          this.resetForm();
+        });
+      }
     }
   }
-  
+
   editarHeader(headerObj: header): void {
-    if (confirm('¿Seguro que deseas editar este registro?')) {
+    if (window.confirm('¿Seguro que deseas editar este registro?')) {
       this.myHeader = { ...headerObj };
-      this.selectedHeaderId = headerObj.id!;
+      this.selectedHeaderId = headerObj.id ?? null;
       this.btntxt = 'Actualizar';
     }
   }
-  
-  
+
   deleteHeader(id?: string) {
-    if (!id) return;
-    if (confirm('¿Seguro que deseas eliminar este header?')) {
+    if (id && window.confirm('¿Seguro que deseas eliminar este header?')) {
       this.headerService.deleteHeader(id).then(() => {
         console.log('Header eliminado correctamente');
+        this.resetForm();
       });
     }
-  }  
+  }
+
+  resetForm() {
+    this.myHeader = new header();
+    this.selectedHeaderId = null;
+    this.btntxt = 'Agregar';
+  }
 }
+

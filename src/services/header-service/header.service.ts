@@ -17,6 +17,11 @@ export class HeaderService {
     return this.headerRef;
   }
 
+  createHeader(data: header): Promise<any> {
+    return this.headerRef.add({ ...data });
+  }
+  
+
   updateHeader(id: string, data: header): Promise<void> {
     return this.db.collection(this.dbPath).doc(id).update(data);
   }

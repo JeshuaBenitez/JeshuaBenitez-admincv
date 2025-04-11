@@ -1,28 +1,23 @@
-<div class="container color-dark">
-    <div class="col">
-        <p>Work experience items</p>
-    </div>
-</div>
 <div class="container color-light">
     <div class="col">
-        <form>
-            <input type="text" class="txt" name="startDate" placeholder="start date (mm/yyyy)" [(ngModel)]= "myWorkExperience.startDate"> <br>
-            <input type="text" class="txt" name="endDate" placeholder="end date (mm/yyyy)" [(ngModel)]= "myWorkExperience.endDate"> <br>
-            <input type="text" class="txt" name="location" placeholder="location (city, country)" [(ngModel)]= "myWorkExperience.location"> <br>
-            <input type="text" class="txt" name="position" placeholder="position" [(ngModel)]= "myWorkExperience.position"> <br>
-            <input type="text" class="txt" name="company" placeholder="company" [(ngModel)]= "myWorkExperience.company"> <br>
-            <input type="text" class="txt" name="accomplishments" placeholder="accomplishments" [(ngModel)]= "myWorkExperience.accomplishments"> <br>
-
-            <button type="submit" class="btn">{{ btntxt }}</button>            
-        </form>
+      <form (ngSubmit)="AgregarJob()">
+        <input type="text" class="txt" name="startDate" placeholder="start date (mm/yyyy)" [(ngModel)]="myWorkExperience.startDate"> <br>
+        <input type="text" class="txt" name="endDate" placeholder="end date (mm/yyyy)" [(ngModel)]="myWorkExperience.endDate"> <br>
+        <input type="text" class="txt" name="location" placeholder="location (city, country)" [(ngModel)]="myWorkExperience.location"> <br>
+        <input type="text" class="txt" name="position" placeholder="position" [(ngModel)]="myWorkExperience.position"> <br>
+        <input type="text" class="txt" name="company" placeholder="company" [(ngModel)]="myWorkExperience.company"> <br>
+        <input type="text" class="txt" name="accomplishments" placeholder="accomplishments" [(ngModel)]="myWorkExperience.accomplishments"> <br>
+  
+        <button type="submit" class="btn" value="Editar">{{ btntxt }}</button>
+      </form>
     </div>
     <div class="col">
-        <div class="life-container" *ngFor="let job of workExperience">
-          <p>
-            {{ job.company }} - {{ job.position }}
-          </p>
-          <input type="submit" class="btn" value="🗑️ Delete" (click)="deleteJob(job.id)">
-          <input type="submit" class="btn" value="✏️ Edit" (click)="EditarJob(job)">
-        </div>
-    </div>      
-</div>
+      <div class="life-container" *ngFor="let job of workExperience">
+        <p>{{ job.company }} - {{ job.position }}</p>
+        <input type="submit" class="btn" value="🗑️ Delete" (click)="deleteJob(job.id)">
+        <input type="submit" class="btn" value="✏️ Edit" (click)="EditarJob(job)">
+      </div>
+    </div>
+  </div>
+  
+  

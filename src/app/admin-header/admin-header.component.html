@@ -15,7 +15,9 @@
       <input type="text" class="txt" placeholder="Location" [(ngModel)]="myHeader.location" name="location"><br>
       <input type="text" class="txt" placeholder="Social Network" [(ngModel)]="myHeader.socialNetwork" name="socialNetwork"><br>
 
-      <input type="submit" class="btn" [value]="btntxt" (click)="actualizarHeader()">
+      <input type="submit" class="btn" [value]="btntxt" (click)="onSubmit()">
+
+
     </form>
   </div>
 
