@@ -1,0 +1,51 @@
+name: Angular_DockerImage
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  angular_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 20.x
+
+      - name: npm install
+        run: npm ci
+
+      - name: test
+        run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+
+      - name: build
+        run: ng build --configuration production
+
+      - name: docker login
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: download and run docker base image
+        run: docker run -d --name mycv-base -p 8080:80 httpd
+
+      - name: Copy built files to docs
+        run: |
+          cp -r docs/browser/* docs/
+
+          git add docs/index.html
+          git commit -m "Move index.html to the root of docs"
+          git push origin deploy-release
+
+
+      - name: build custom docker image
+        run: docker commit --change "ENV MODEL_NAME mycv-base" mycv-base ${{ secrets.DOCKER_USER }}/mycv:${{ github.sha }}
+
+      - name: docker push
+        run: docker push ${{ secrets.DOCKER_USER }}/mycv:${{ github.sha }}
